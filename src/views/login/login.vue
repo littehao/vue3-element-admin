@@ -33,8 +33,8 @@
 
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
-import { useTagsStore } from '../store/tags';
-import { usePermissStore } from '../store/permiss';
+import { useTagsStore } from '../../store/modules/tags';
+import { usePermissStore } from '../../store/modules/permiss';
 import { useRouter } from 'vue-router';
 import { ElMessage } from 'element-plus';
 import type { FormInstance, FormRules } from 'element-plus';
@@ -89,7 +89,7 @@ tags.clearTags();
 	position: relative;
 	width: 100%;
 	height: 100%;
-	background-image: url(../assets/img/login-bg.jpg);
+	background-image: url(../../assets/img/loginbg.jpg);
 	background-size: 100%;
 }
 .ms-title {

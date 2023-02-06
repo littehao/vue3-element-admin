@@ -1,15 +1,15 @@
 import { createApp } from 'vue';
-import { createPinia } from 'pinia';
 import * as ElementPlusIconsVue from '@element-plus/icons-vue';
 import 'default-passive-events'
 import App from './App.vue';
 import router from './router';
-import { usePermissStore } from './store/permiss';
+import { setupStore } from './store';
+import { usePermissStore } from './store/modules/permiss';
 import 'element-plus/dist/index.css';
 import './assets/css/icon.css';
 
 const app = createApp(App);
-app.use(createPinia());
+setupStore(app)
 app.use(router);
 
 // 注册elementplus图标
