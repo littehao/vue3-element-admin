@@ -34,12 +34,9 @@ declare module '@vue/runtime-core' {
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     ElUpload: typeof import('element-plus/es')['ElUpload']
     Header: typeof import('./src/components/header.vue')['default']
-    Horizontal: typeof import('./src/components/horizontal.vue')['default']
-    Menu: typeof import('./src/components/menu.vue')['default']
     MenuSidebar: typeof import('./src/components/menuSidebar.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    Sidebar: typeof import('./src/components/sidebar.vue')['default']
     Tags: typeof import('./src/components/tags.vue')['default']
   }
 }

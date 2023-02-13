@@ -71,5 +71,14 @@ export default defineConfig({
  },
 	optimizeDeps: {
 		include: optimizeDepsElementPlusIncludes
-	}
+	},
+	// 反向代理
+		server: {
+				host: '0.0.0.0', //服务器ip地址
+				port: 4000, //本地端口
+				fs: {
+						strict: false, //  支持引用除入口目录的文件
+				},
+				open: false, // 是否自动在浏览器打开
+		}
 });
