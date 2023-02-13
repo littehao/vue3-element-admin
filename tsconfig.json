@@ -14,7 +14,7 @@
     "skipLibCheck": true,
     "paths": {
     // 路径映射，相对于baseUrl
-      "@/*":["src/*"]
+      "@/*":["./src/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts","src/**/*.vue"],

@@ -6,7 +6,7 @@ import router from './router';
 import { setupStore } from './store';
 import { usePermissStore } from './store/modules/permiss';
 import 'element-plus/dist/index.css';
-import './assets/css/icon.css';
+import './assets/css/index.css';
 
 const app = createApp(App);
 setupStore(app)

@@ -1,11 +1,14 @@
 <template>
-	<div class="header">
+	<div class="header" :class="sidebar.menuMode == 'vertical'?'':'pl-20 flex align-center'">
 		<!-- 折叠按钮 -->
-		<div class="collapse-btn" @click="collapseChage">
+		<div class="collapse-btn pl-20 pr-20" @click="collapseChage" v-if="sidebar.menuMode == 'vertical'">
 			<el-icon v-if="sidebar.collapse"><Expand /></el-icon>
 			<el-icon v-else><Fold /></el-icon>
 		</div>
 		<div class="logo">后台管理系统</div>
+		<!--水平导航-->
+		<menuSidebar />
+		<!--右侧信息-->
 		<div class="header-right">
 			<div class="header-user-con">
 				<!-- 消息中心 -->
@@ -32,6 +35,7 @@
 					<template #dropdown>
 						<el-dropdown-menu>
 							<el-dropdown-item command="user">个人中心</el-dropdown-item>
+							<el-dropdown-item command="nav">导航切换</el-dropdown-item>
 							<el-dropdown-item divided command="loginout">退出登录</el-dropdown-item>
 						</el-dropdown-menu>
 					</template>
@@ -41,10 +45,11 @@
 	</div>
 </template>
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { onMounted, ref ,Ref} from 'vue';
 import { useSidebarStore } from '../store/modules/sidebar';
 import { useRouter } from 'vue-router';
 import imgurl from '../assets/img/img.jpg';
+import menuSidebar from '../components/menuSidebar.vue';
 
 const username: string | null = localStorage.getItem('ms_username');
 const message: number = 2;
@@ -63,12 +68,17 @@ onMounted(() => {
 
 // 用户名下拉菜单选择事件
 const router = useRouter();
+//导航模式
+let navpattern = sidebar.menuMode
 const handleCommand = (command: string) => {
 	if (command == 'loginout') {
 		localStorage.removeItem('ms_username');
 		router.push('/login');
 	} else if (command == 'user') {
 		router.push('/user');
+	} else if(command == 'nav'){
+		navpattern = navpattern == 'horizontal'?'vertical':'horizontal'
+		sidebar.changeMenuMode(navpattern)
 	}
 };
 </script>
@@ -87,7 +97,6 @@ const handleCommand = (command: string) => {
 	align-items: center;
 	height: 100%;
 	float: left;
-	padding: 0 21px;
 	cursor: pointer;
 }
 .header .logo {

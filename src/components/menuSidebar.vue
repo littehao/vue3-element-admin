@@ -1,18 +1,20 @@
 <template>
-    <div class="sidebar">
+    <div class="menu-sidebar" :class="sidebar.menuMode == 'horizontal'?'relative flex-1 h-100':'absolute top'">
         <el-menu
             class="sidebar-el-menu"
+            :class="sidebar.menuMode == 'horizontal'?'':'vertical'"
             :default-active="onRoutes"
-            :collapse="sidebar.collapse"
-            background-color="#324157"
+            :collapse="sidebar.menuMode == 'horizontal'?false:sidebar.collapse"
+            :background-color="sidebar.menuMode == 'horizontal'?'transparent':'#324157'"
             text-color="#bfcbd9"
             active-text-color="#20a0ff"
+            :mode="sidebar.menuMode"
             unique-opened
             router
         >
             <template v-for="item in items">
                 <template v-if="item.subs">
-                    <el-sub-menu :index="item.index" :key="item.index" v-permiss="item.permiss">
+                    <el-sub-menu :index="item.index" :key="item.index" v-permiss="item.permiss" :popper-class="sidebar.menuMode == 'horizontal'?'sub-horizontal-bg':''">
                         <template #title>
                             <el-icon>
                                 <component :is="item.icon"></component>
@@ -43,7 +45,6 @@
 import { computed } from 'vue';
 import { useSidebarStore } from '../store/modules/sidebar';
 import { useRoute } from 'vue-router';
-
 const items = [
     {
         icon: 'Odometer',
@@ -84,22 +85,51 @@ const onRoutes = computed(() => {
 const sidebar = useSidebarStore();
 </script>
 
-<style scoped>
-.sidebar {
+<style lang="scss">
+.menu-sidebar{
+    .sidebar-el-menu.vertical:not(.el-menu--collapse) {
+        width: 250px;
+    }
+    .el-menu--horizontal{
+        border:0;
+        background-color: transparent;
+    }
+    .el-menu--horizontal>.el-sub-menu:hover,
+    .el-menu--horizontal>.el-sub-menu.is-active{
+        color: var(--el-menu-hover-text-color);
+        background-color: var(--el-menu-hover-bg-color);
+    }
+    .el-menu--horizontal>.el-menu-item.is-active{
+        background-color: var(--el-menu-hover-bg-color);
+    }
+    .el-menu.vertical>.el-menu-item.is-active,
+    .el-menu.vertical>.el-sub-menu.is-active .el-menu-item.is-active{
+        background-color: var(--el-menu-hover-bg-color);
+    }
+}
+.menu-sidebar.top{
     display: block;
-    position: absolute;
     left: 0;
     top: 70px;
     bottom: 0;
     overflow-y: scroll;
 }
-.sidebar::-webkit-scrollbar {
+.menu-sidebar::-webkit-scrollbar {
     width: 0;
 }
-.sidebar-el-menu:not(.el-menu--collapse) {
-    width: 250px;
-}
-.sidebar > ul {
+.menu-sidebar > ul {
     height: 100%;
+    width: 100%;
+}
+/*菜单样式*/
+.el-popper.sub-horizontal-bg{
+    background-color: #242f42 !important;
+}
+.el-menu--horizontal.sub-horizontal-bg .el-menu-item:not(.is-disabled):focus,
+.el-menu--horizontal.sub-horizontal-bg .el-menu-item:not(.is-disabled):hover,
+.el-menu--horizontal .el-menu .el-menu-item.is-active,
+.el-menu--horizontal .el-menu .el-sub-menu.is-active>.el-sub-menu__title{
+    color: var(--el-menu-active-color);
+    background-color: var(--el-menu-hover-bg-color);
 }
 </style>

@@ -5,10 +5,16 @@
 </template>
 
 <script setup lang="ts">
+import { ref ,Ref} from 'vue';
 import { ElConfigProvider } from 'element-plus';
 import zhCn from 'element-plus/es/locale/lang/zh-cn';
+import { useSidebarStore } from '@/store/modules/sidebar';
+
+//导航模式
+const sidebar = useSidebarStore();
+let navpattern: string = localStorage.getItem('menuMode') || 'horizontal'
+sidebar.changeMenuMode(navpattern)
 </script>
 <style>
-@import './assets/css/main.css';
-@import './assets/css/color-dark.css';
+
 </style>

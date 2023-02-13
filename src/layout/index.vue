@@ -1,7 +1,7 @@
 <template>
 	<v-header />
-	<v-sidebar />
-	<div class="content-box" :class="{ 'content-collapse': sidebar.collapse }">
+	<menuSidebar v-if="sidebar.menuMode == 'vertical'"/>
+	<div class="content-box" :class="sidebar.menuMode == 'vertical'?['vertical',{'content-collapse': sidebar.collapse}]:''">
 		<v-tags></v-tags>
 		<div class="content">
 			<router-view v-slot="{ Component }">
@@ -18,7 +18,7 @@
 import { useSidebarStore } from '../store/modules/sidebar';
 import { useTagsStore } from '../store/modules/tags';
 import vHeader from '../components/header.vue';
-import vSidebar from '../components/sidebar.vue';
+import menuSidebar from '../components/menuSidebar.vue';
 import vTags from '../components/tags.vue';
 
 const sidebar = useSidebarStore();
